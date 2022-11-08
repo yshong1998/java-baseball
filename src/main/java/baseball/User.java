@@ -6,24 +6,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    List<Integer> userNumber = new ArrayList<>();
-    String userStringNumber;
-    String[] splittedUserNumber;
+    private List<Integer> userNumber = new ArrayList<>();
 
-    protected void scanUserNumber() {
-        userNumber.clear();
-        System.out.print("숫자를 입력해주세요 : ");
-        userStringNumber = Console.readLine();
-        if (userStringNumber.length() > 3 || userStringNumber.contains("0")) {
-            throw new IllegalArgumentException();
-        }
-        splitStringNumber(userStringNumber);
+    public List<Integer> getUserNumber() {
+        return userNumber;
     }
 
-    protected void splitStringNumber(String userStringNumber) {
+    public void inputUserNumber() {
+        userNumber.clear();
+        String userStringNumber;
+        userStringNumber = Console.readLine();
+        stringToIntNumber(userStringNumber);
+        checkException(userNumber);
+    }
+
+    private void checkException(List<Integer> userNumber) {
+        if (userNumber.size() != 3 || userNumber.contains(0)) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void stringToIntNumber(String userStringNumber) {
+        String[] splittedUserNumber;
         splittedUserNumber = userStringNumber.split("");
-        for (String s : splittedUserNumber) {
-            userNumber.add(Integer.parseInt(s));
+        for (String elementNumber : splittedUserNumber) {
+            addUserNumber(elementNumber);
+        }
+    }
+
+    private void addUserNumber(String elementNumber) {
+        if (userNumber.contains(elementNumber) || userNumber.contains(" ")) {
+            throw new IllegalArgumentException(); // 중복 제거
+        } else {
+            userNumber.add(Integer.parseInt(elementNumber));
         }
     }
 }

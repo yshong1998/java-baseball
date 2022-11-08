@@ -3,21 +3,32 @@ package baseball;
 import java.util.List;
 
 public class Referee {
-    int strike;
-    int ball;
+    private int strike;
+    private int ball;
 
-    protected void calculateBallCount(List<Integer> computerNumber, List<Integer> userNumber) {
+    public int getStrikeCount() {
+        return strike;
+    }
+
+    public int getBallCount() {
+        return ball;
+    }
+
+    public void ballCount(List<Integer> computerNumber, List<Integer> userNumber) {
         clearBallCount();
         for (int i = 0; i < 3; i++) {
-            if (computerNumber.get(i).equals(userNumber.get(i))) {
+            if (computerNumber.get(i).equals(userNumber.get(i))) { // depth가 3이예요
                 strike++;
             } else if (computerNumber.contains(userNumber.get(i))) {
                 ball++;
             }
         }
     }
+    protected void printStartMessage() {
+        System.out.println("숫자 야구 게임을 시작합니다.");
+    }
 
-    protected void clearBallCount() {
+    public void clearBallCount() {
         strike = 0;
         ball = 0;
     }
