@@ -6,7 +6,7 @@ public class Referee {
     int strike;
     int ball;
 
-    protected void ballCount(List<Integer> computerNumber, List<Integer> userNumber) {
+    protected void calculateBallCount(List<Integer> computerNumber, List<Integer> userNumber) {
         clearBallCount();
         for (int i = 0; i < 3; i++) {
             if (computerNumber.get(i).equals(userNumber.get(i))) {
