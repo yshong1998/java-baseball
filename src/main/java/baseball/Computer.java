@@ -17,7 +17,8 @@ public class Computer {
     public String getRestartNumber() {
         return restartNumber;
     }
-    public void requestInputMessage(){
+
+    public void requestInputMessage() {
         System.out.print("숫자를 입력해주세요 : ");
     }
 
