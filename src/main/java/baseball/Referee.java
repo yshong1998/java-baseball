@@ -17,7 +17,7 @@ public class Referee {
     public void ballCount(List<Integer> computerNumber, List<Integer> userNumber) {
         clearBallCount();
         for (int i = 0; i < 3; i++) {
-            if (computerNumber.get(i).equals(userNumber.get(i))) { // depth가 3이예요
+            if (computerNumber.get(i).equals(userNumber.get(i))) {
                 strike++;
             } else if (computerNumber.contains(userNumber.get(i))) {
                 ball++;
