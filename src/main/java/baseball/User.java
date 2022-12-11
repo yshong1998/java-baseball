@@ -2,43 +2,61 @@ package baseball;
 
 import camp.nextstep.edu.missionutils.Console;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class User {
-    private List<Integer> userNumber = new ArrayList<>();
 
-    public List<Integer> getUserNumber() {
-        return userNumber;
+
+    private final List<Integer> userNumbers = new ArrayList<>();
+
+    public List<Integer> getUserNumbers() {
+        return userNumbers;
     }
 
-    public void inputUserNumber() {
-        userNumber.clear();
-        String userStringNumber;
-        userStringNumber = Console.readLine();
-        stringToIntNumber(userStringNumber);
-        checkException(userNumber);
+    public String inputRestartNumber() {
+        String restartNumber = Console.readLine();
+        if(!(restartNumber.equals("1") || restartNumber.equals("2"))){
+            throw new IllegalArgumentException();
+        }
+        return restartNumber;
     }
 
-    private void checkException(List<Integer> userNumber) {
-        if (userNumber.size() != 3 || userNumber.contains(0)) {
+    public void createUserNumber() {
+        userNumbers.clear();
+        String inputNumbers;
+        inputNumbers = Console.readLine();
+        checkNumberDuplicate(inputNumbers);
+        checkNumberOutOfRange(inputNumbers);
+        checkStringInput(inputNumbers);
+        inputUserNumbers(inputNumbers);
+    }
+
+    private void inputUserNumbers(String inputNumbers) {
+        String[] numbers = inputNumbers.split("");
+        for (int i = 0; i < inputNumbers.length(); i++) {
+            userNumbers.add(Integer.parseInt(numbers[i]));
+        }
+    }
+
+    private void checkNumberDuplicate(String inputNumbers) {
+        String[] splitNumbers = inputNumbers.split("");
+        Set<String> numbers = new HashSet<>(Arrays.asList(splitNumbers));
+        if (numbers.size() != 3) {
             throw new IllegalArgumentException();
         }
     }
 
-    private void stringToIntNumber(String userStringNumber) {
-        String[] splittedUserNumber;
-        splittedUserNumber = userStringNumber.split("");
-        for (String elementNumber : splittedUserNumber) {
-            addUserNumber(elementNumber);
+    private void checkNumberOutOfRange(String inputNumbers) {
+        if (inputNumbers.length() != 3) {
+            throw new IllegalArgumentException();
         }
     }
 
-    private void addUserNumber(String elementNumber) {
-        if (userNumber.contains(elementNumber) || userNumber.contains(" ")) {
-            throw new IllegalArgumentException(); // 중복 제거
-        } else {
-            userNumber.add(Integer.parseInt(elementNumber));
+    private void checkStringInput(String inputNumbers) {
+        try {
+            Integer.parseInt(inputNumbers);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

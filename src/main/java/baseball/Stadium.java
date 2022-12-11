@@ -1,31 +1,29 @@
 package baseball;
 
 public class Stadium {
-    private final Computer computer = new Computer();
-    private final User user = new User();
-    private final Referee referee = new Referee();
 
-    protected void startGame() {
-        referee.printStartMessage();
-        while (!computer.getRestartNumber().equals("2")) {
-            playGame();
+    Computer computer = new Computer();
+    User user = new User();
+    Referee referee = new Referee();
+
+    public void playGame() {
+        String restartNumber = "1";
+        while (restartNumber.equals("1")) {
+            oneGameCycle();
+            restartNumber = user.inputRestartNumber();
         }
     }
 
-    private void playGame() {
-        readyForGame();
-        while (referee.getStrikeCount() != 3) {
+    private void oneGameCycle() {
+        boolean match = true;
+        computer.createComputerNumbers();
+        while (match) {
             computer.requestInputMessage();
-            user.inputUserNumber();
-            referee.ballCount(computer.getComputerNumber(), user.getUserNumber());
-            referee.printBallCount(referee.getStrikeCount(), referee.getBallCount());
+            user.createUserNumber();
+            referee.calculateBallCount(computer.getComputerNumbers(), user.getUserNumbers());
+            referee.printBallCount();
+            match = referee.checkGameOver();
         }
-        computer.restarter();
-        computer.restartOrNot();
-    }
-
-    private void readyForGame() {
-        computer.createAnswerNumber();
-        referee.clearBallCount();
+        computer.printEndMessage();
     }
 }
